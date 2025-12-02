@@ -1,0 +1,307 @@
+<div class="text-light text-start fadeIn d-none d-sm-block">
+  <div class="banner-reschedule-appointment">
+    <div
+      class="container d-flex align-items-center align-self-center pt-1 pt-lg-4"
+    >
+      <img
+        class="img-fluid"
+        src="/assets/icons/calendar-with-tooth-white.png"
+        alt=""
+      />
+      <h1
+        class="banner-text title-info-new font-size-60 font-family-Semibold color-whit"
+      >
+        Reservar una hora
+      </h1>
+    </div>
+  </div>
+</div>
+<div
+  class="container align-items-center text-center mt-2 fadeIn userFormContainer"
+>
+  <!-- Registro Paciente -->
+  <div
+    class="container align-items-center text-center pb-5 fadeIn"
+    *ngIf="!isRegistered"
+  >
+    <!-- Title Schedule Date -->
+    <span class="title2 fw-light title-line">Ingresa tus datos</span>
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      class="form-group justify-content-center"
+    >
+      <!-- Rut -->
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="form-rut" class="form-label" class="custom-label"
+              >Ingresa tu Rut</label
+            >
+          </div>
+          <input
+            type="text"
+            class="custom-input"
+            id="form-rut"
+            placeholder="Rut"
+            formControlName="rut"
+            appFormControl
+          />
+          <div
+            *ngIf="
+              form.get('rut').hasError('invalid') && form.get('rut').touched
+            "
+            class="col text"
+          >
+            <span class="text-validation fadeIn">* El rut no es válido</span>
+          </div>
+        </div>
+      </div>
+      <!-- Nombre -->
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="form-name" class="form-label" class="custom-label"
+              >Ingresa tu nombre</label
+            >
+          </div>
+          <input
+            type="text"
+            class="custom-input"
+            id="form-name"
+            placeholder="Nombre"
+            formControlName="name"
+            appFormControl
+          />
+          <div *ngIf="isValid('name')" class="col text">
+            <span class="text-validation fadeIn">* El nombre no es válido</span>
+          </div>
+        </div>
+      </div>
+      <!-- Apellidos -->
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="form-lastName" class="form-label" class="custom-label"
+              >Ingresa tus apellidos</label
+            >
+          </div>
+          <input
+            type="text"
+            class="custom-input"
+            id="form-lastName"
+            placeholder="Apellidos"
+            formControlName="lastName"
+          />
+          <div *ngIf="isValid('lastName')" class="col text">
+            <span class="text-validation fadeIn">* El nombre no es válido</span>
+          </div>
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="row text-center">
+        <div class="col">
+          <div class="col">
+            <label for="form-email" class="form-label" class="custom-label"
+              >Ingresa tu correo electrónico válido</label
+            >
+          </div>
+
+          <input
+            type="email"
+            class="custom-input"
+            id="form-email"
+            placeholder="Correo electrónico"
+            formControlName="email"
+          />
+          <div *ngIf="isValid('email')" class="col text">
+            <span class="text-validation fadeIn">* Ingresa un correo</span>
+          </div>
+        </div>
+      </div>
+      <!-- telefono -->
+      <div class="row">
+        <div class="col">
+          <div class="col text-center">
+            <label for="form-phone" class="form-label" class="custom-label"
+              >Ingresa tu número de celular</label
+            >
+          </div>
+          <input
+            type="text"
+            class="custom-input"
+            id="form-phoneNumber"
+            placeholder="987654321"
+            [minlength]="mixTel"
+            [maxlength]="maxTel"
+            formControlName="phoneNumber"
+          />
+          <div *ngIf="isValid('phoneNumber')" class="col text">
+            <span class="text-validation fadeIn"
+              >*Ingresa un número de teléfono válido</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- captcha -->
+      <div class="row pt-4">
+        <div class="col">
+          <div class="d-flex justify-content-center">
+            <ngx-recaptcha2
+              #captchaElem
+              [siteKey]="siteKey"
+              [useGlobalDomain]="false"
+              formControlName="recaptcha"
+            >
+            </ngx-recaptcha2>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="btn-custom-secondary2 mt-5"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Registrar
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="showCard" class="">
+    <!-- Doc information card -->
+    <span
+      class="title-info-new font-size-36 font-family-Light color-gris fw-light mt-1 mt-lg-4 title-line mb-4"
+      >Revisa y confirma tus datos
+    </span>
+
+    <div class="container mt-1 mt-lg-4 mb-1" class="fadeIn">
+      <div class="card custom-card2 fadeIn mt-1 mt-lg-3">
+        <div class="custom-card-header"></div>
+        <div class="card-body">
+          <div class="row d-flex align-items-center">
+            <!-- Doc info -->
+            <div class="col-md col-sm">
+              <div class="row">
+                <div class="col-md-2 col-sm text-md-end text-sm-center">
+                  <img
+                    class=""
+                    src="/assets/icons/dentist-in-blue.png"
+                    alt="icono Profesional"
+                  />
+                </div>
+                <div class="col-md-10 col-sm text-md-start text-sm-center">
+                  <span
+                    class="p2 title-info-new font-size-20 font-family-Semibold color-blue"
+                    >{{ this.datosDeAgendamiento["nombre"] | titlecase }}</span
+                  >
+                  <br /><span
+                    class="p title-info-new font-size-18 font-family-Light color-gris"
+                    >{{ this.datosDeAgendamiento["nombreEspecialidad"] }}</span
+                  >
+                  <br /><b
+                    class="title-info-new font-size-18 font-family-Regular color-gris"
+                    >{{ this.datosDeAgendamiento["sucursal"] }}</b
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Patient Info -->
+            <div class="col-md col-sm">
+              <div class="row p-2">
+                <div class="col-md-2 col-sm text-md-end text-sm-center">
+                  <img
+                    class=""
+                    src="/assets/icons/tooth-pain-blue.png"
+                    alt="icono Paciente"
+                  />
+                </div>
+                <div class="col-md-10 col-sm text-md-start text-sm-center">
+                  <p>
+                    <span
+                      class="p2 title-info-new font-size-20 font-family-Semibold color-blue"
+                      >{{ patient.nombre | capitalizade }}</span
+                    >
+                    <br /><span
+                      class="p title-info-new font-size-18 font-family-Light color-gris"
+                      >{{ patient.rut }}</span
+                    >
+                    <br /><span
+                      class="p title-info-new font-size-18 font-family-Light color-gris"
+                      >{{ this.emailToShow }}</span
+                    >
+                    <br /><span
+                      class="p title-info-new font-size-18 font-family-Light color-gris"
+                      >{{ this.cellphoneToShow }}</span
+                    >
+                    <br />
+                    <a href="#" (click)="openUpdateModal(); $event.preventDefault()" class="p title-info-new fw-bold" style="color: #ff0f09; text-decoration: underline; font-size: 13px;">
+                      <i class="fas fa-edit" style="margin-right: 8px;"></i>Actualizar datos
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <!-- Appointment Info -->
+              <div class="row">
+                <div class="col-md col-sm">
+                  <div class="row">
+                    <div class="col-md-2 col-sm text-md-end text-sm-center">
+                      <img
+                        class=""
+                        src="/assets/icons/calendar-with-tooth-blue.png"
+                        alt="icono calendario"
+                      />
+                    </div>
+                    <div class="col-md-10 col-sm text-md-start text-sm-center">
+                      <p>
+                        <span
+                          class="p2 ms-md-2 title-info-new font-size-20 font-family-Semibold color-blue"
+                          >{{
+                            this.datosDeAgendamiento["fecha"] | date: "fullDate"
+                          }}</span
+                        >
+                        <br /><span
+                          class="p ms-md-2 title-info-new font-size-18 font-family-Light color-gris"
+                          >{{ this.datosDeAgendamiento["hora"] }}</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- captcha -->
+    <div class="row pt-4">
+      <div class="col">
+        <div class="d-flex justify-content-center">
+          <ngx-recaptcha2
+            #captchaElem
+            [siteKey]="siteKey"
+            (success)="handleSuccess($event)"
+          >
+          </ngx-recaptcha2>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button
+        class="btn-custom-secondary2 m-3 mb-5"
+        *ngIf="!this.captchaSuccess"
+      >
+        Reservar
+      </button>
+      <button
+        (click)="reservar()"
+        class="btn-custom-secondary2 m-3 mb-5"
+        *ngIf="this.captchaSuccess"
+      >
+        Reservar
+      </button>
+    </div>
+  </div>
+</div>

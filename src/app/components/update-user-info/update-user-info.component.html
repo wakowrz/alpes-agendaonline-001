@@ -1,0 +1,66 @@
+<form [formGroup]="miFormulario" (ngSubmit)="send()">
+  <div class="modal-header">
+    <span class="p2 title-info-new font-size-20 font-family-Regular color-blue"
+      ><b>Actualizar Datos</b></span
+    >
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="activeModal.dismiss()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="row mb-3">
+      <div class="col-12 text-center">
+        <label class="custom-label"> Nuevo Email</label>
+      </div>
+      <br />
+      <div class="col-12 text-center">
+        <input
+          formControlName="email"
+          [maxlength]="maxEmail"
+          type="email"
+          class="custom-input modal-input-width"
+          placeholder="xxxx@gmail.com"
+        />
+      </div>
+      <div class="text-center">
+        <span *ngIf="isValid('email')" class="text-danger">
+          Debe ingresar un email válido
+        </span>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-12 text-center">
+        <label class="custom-label"> Nuevo teléfono</label>
+      </div>
+      <br />
+      <div class="col-12 text-center">
+        <input
+          formControlName="telefono"
+          type="text"
+          class="custom-input modal-input-width"
+          [minlength]="mixTel"
+          [maxlength]="maxTel"
+          placeholder="56XXXXX6789"
+        />
+      </div>
+      <div class="text-center">
+        <span *ngIf="isValid('telefono')" class="text-danger">
+          Debe ingresar un número telefónico válido
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn-custom-secondary2"
+      [disabled]="miFormulario.invalid"
+      type="submit"
+    >
+      Guardar
+    </button>
+  </div>
+</form>

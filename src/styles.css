@@ -1,0 +1,218 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap");
+/* @font-face {
+  font-family: 'Source Sans Pro';
+  src: local('Source Sans Pro'), url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap') format('truetype');
+} */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.title {
+  font-size: 36px;
+  font-stretch: normal;
+  font-style: lighter;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+}
+
+.subtitle {
+  font-size: 36px;
+  color: #373a44;
+}
+
+.placeholder {
+  height: 24px;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: left;
+  color: #5a6684;
+}
+
+.custom-navbar {
+  height: 80px;
+  color: #072d69;
+  background-color: #fff;
+  background: #fff;
+  width: auto;
+  padding: 2px;
+}
+
+.navbar-toggler {
+  color: #072d69;
+}
+
+header {
+  background-image: url(./assets/img/Banner.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 240px;
+  width: 100%;
+  top: 32px;
+  z-index: 9999;
+}
+
+.header-text,
+.header-icon {
+  font-size: 60px;
+  color: #fff;
+  padding-left: 50px;
+}
+
+.custom-footer {
+  height: 70px;
+  width: auto;
+  background-color: #263168;
+  color: #fff;
+  padding-top: 5px;
+  text-align: left;
+}
+
+.home {
+  background-color: #fff;
+  background: #fff;
+}
+
+fa-icon {
+  font-size: 16px;
+  color: #fff;
+}
+
+.btn-custom-secondary {
+  width: 205px;
+  height: 60px;
+  border-radius: 6px;
+  background-color: #072d69;
+  color: #fff;
+}
+
+.btn-custom-outline {
+  width: 238px;
+  height: 94px;
+  border-radius: 16px;
+  border: solid 1px #072d69;
+  font-size: 18px;
+  font-style: regular;
+  align-self: center;
+}
+
+.btn-custom-outline:focus {
+  width: 238px;
+  height: 94px;
+  border-radius: 16px;
+  border: solid 1px #faba1a;
+  background-color: #faba1a;
+  color: #fff;
+  font-size: 18px;
+  font-style: regular;
+  align-self: center;
+}
+
+.fa-icon-btn {
+  font-size: 35px;
+  color: #072d69;
+  padding: 10px;
+}
+
+.fa-icon-btn:active {
+  font-size: 35px;
+  color: #fff;
+  padding: 10px;
+}
+
+.custom-label {
+  font-size: 20px;
+  font-weight: normal;
+  padding-top: 3%;
+  padding-bottom: 1%;
+  color: #373a44;
+  align-content: center;
+  text-align: center;
+}
+
+.custom-input {
+  min-width: 400px;
+  border: none;
+  border-bottom: solid 2px #072d69;
+  padding: 12px 0 0;
+  font-size: 16px;
+  font-style: italic;
+  color: #5a6684;
+}
+
+.selected-input {
+  font-style: italic !important;
+  color: #5a6684 !important;
+}
+
+select {
+  min-width: 400px;
+  height: 48px;
+  border: none;
+  border-bottom: solid 2px #072d69;
+  padding: 12px 0 0;
+  font-size: 16px;
+  font-style: italic;
+  color: #5a6684;
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
+.fadeIn,
+.fadeOut {
+  -webkit-animation-duration: 0.48s;
+  animation-duration: 0.48s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+} /*# sourceMappingURL=styles.css.map */

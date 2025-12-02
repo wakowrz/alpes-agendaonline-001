@@ -1,0 +1,440 @@
+<div class="container align-items-center text-center pb-5 userFormContainer">
+  <div class="row mt-0 mt-md-1 mt-lg-3">
+    <div class="gap-2 d-md-block">
+      <button
+        (mouseleave)="imgDetinstaLost()"
+        (mouseleave)="imgDienteLost()"
+        (mouseover)="imgDiente()"
+        type="button"
+  class="btn-custom-outline m-2 d-md-inline-flex d-sm-inline-flex btn-agendar-especialidad"
+        (click)="this.selectFor('specialty')"
+      >
+        <img
+          [hidden]="changeDiente"
+          class="img-fluid icon-btn me-md-4"
+          src="/assets/icons/tooth-blue.png"
+          alt="Agendar por especialidad"
+        />
+        <img
+          [hidden]="!changeDiente"
+          class="img-fluid icon-btn me-md-4"
+          src="/assets/icons/tooth-white.png"
+          alt="agendar por especialidad"
+        />
+        <span class="spanIconForm mt-3"
+          >Buscar por <span class="spanIconForm">Especialidad</span></span
+        >
+      </button>
+      <button
+        type="button"
+        (mouseleave)="imgDetinstaLost()"
+        (mouseleave)="imgDienteLost()"
+        (mouseover)="imgDetinsta()"
+  class="btn-custom-outline m-2 d-md-inline-flex d-sm-inline-flex btn-agendar-profesional"
+        (click)="this.selectFor('profesional')"
+      >
+        <img
+          [hidden]="changeDentista"
+          class="img-fluid icon-btn me-md-4"
+          src="/assets/icons/dentist-in-blue.png"
+          alt="Agendar por profesional"
+        />
+        <img
+          [hidden]="!changeDentista"
+          class="img-fluid icon-btn me-md-4"
+          src="/assets/icons/dentist-in-white.png"
+          alt="Agendar por profesional"
+        />
+        <span class="spanIconForm mt-3"
+          >Buscar por <span class="spanIconForm">Profesional</span></span
+        >
+      </button>
+        
+    </div>
+  </div>
+
+  <!-- Selección por especialidad -->
+
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="(onSubmit)"
+    class="form-group justify-content-center"
+  >
+    <div *ngIf="this.selection === 'specialty' && specialties.length > 0">
+      <!-- Rut Paciente -->
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="formRut" class="form-label custom-label"
+              >Rut del Paciente</label
+            >
+          </div>
+
+          <input
+            type="text"
+            name="formRut"
+            formControlName="formRut"
+            class="custom-input"
+            id="formRut"
+            placeholder="123465678-9"
+          />
+
+          <div
+            *ngIf="
+              userForm.get('formRut').hasError('invalid') &&
+              userForm.get('formRut').touched
+            "
+            class="col text"
+          >
+            <span class="text-validation fadeIn">* El rut no es válido</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="formSpeciality" class="form-label" class="custom-label"
+              >Seleccione especialidad</label
+            >
+          </div>
+          <select
+            type="text"
+            formControlName="formSpeciality"
+            class="custom-input color-background-whit"
+            id="formSpeciality"
+            placeholder="Seleccione sucursal"
+          >
+            <option selected value=""></option>
+            <option
+              *ngFor="let specialty of specialties"
+              [ngValue]="specialty.id"
+            >
+              {{ specialty.especialtyToShow }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          userForm.get('formSpeciality').hasError('required') &&
+          userForm.get('formSpeciality').touched
+        "
+        class="col text"
+      >
+        <span class="text-validation fadeIn">* Debe escoger una opción</span>
+      </div>
+      <!-- Selección por prestación -->
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="formAttention" class="form-label" class="custom-label"
+              >Seleccione tratamiento</label
+            >
+          </div>
+
+          <select
+            type="text"
+            class="custom-input color-background-whit"
+            formControlName="formAttention"
+            id="formAttention"
+            (change)="actionSelect()"
+            placeholder="Seleccione sucursal"
+          >
+            <option selected value=""></option>
+            <option
+              *ngFor="let subSpecialty of subSpecialties"
+              [ngValue]="subSpecialty"
+            >
+              {{ subSpecialty.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          userForm.get('formAttention').hasError('required') &&
+          userForm.get('formAttention').touched
+        "
+        class="col text"
+      >
+        <span class="text-validation fadeIn">* Debe escoger una opción</span>
+      </div>
+
+      <!-- Selección sucursal -->
+      <div class="row">
+        <div class="col">
+          <div>
+            <label for="formSede" class="form-label" class="custom-label"
+              >Seleccione sucursal</label
+            >
+          </div>
+          <select
+            type="text"
+            formControlName="formSede"
+            class="custom-input"
+            id="formSede"
+            placeholder="Seleccione sucursal"
+          >
+            <option selected value=""></option>
+            <option
+              *ngFor="let office of offices"
+              [ngValue]="office.id_sucursal"
+            >
+              {{ office.nombre_sucursal }}, {{ office.comuna | capitalizade }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          userForm.get('formSede').hasError('required') &&
+          userForm.get('formSede').touched
+        "
+        class="col text"
+      >
+        <span class="text-validation fadeIn">* Debe escoger una opción</span>
+      </div>
+    </div>
+    <div *ngIf="this.selection === 'profesional' && dentists.length > 0">
+      <!-- Selección por rut -->
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="formRut" class="form-label custom-label"
+              >Rut del Paciente</label
+            >
+          </div>
+
+          <input
+            type="text"
+            name="formRut"
+            formControlName="formRut"
+            class="custom-input"
+            id="formRut"
+            placeholder="123465678-9"
+          />
+
+          <div
+            *ngIf="
+              userForm.get('formRut').hasError('invalid') &&
+              userForm.get('formRut').touched
+            "
+            class="col text"
+          >
+            <span class="text-validation fadeIn">* El rut no es válido</span>
+          </div>
+        </div>
+      </div>
+      <!-- Selección por profesional -->
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="formProfesional" class="form-label" class="custom-label"
+              >Buscar profesional</label
+            >
+          </div>
+          <ng-select
+            formControlName="formProfesional"
+            class="custom-input"
+            id="formProfesional"
+            placeholder="Seleccione sucursal"
+          >
+            <option selected value=""></option>
+            <ng-option *ngFor="let dentist of dentists" [value]="dentist">
+              {{ dentist.nombre | titlecase }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          userForm.get('formProfesional').hasError('required') &&
+          userForm.get('formProfesional').touched
+        "
+        class="col text"
+      >
+        <span class="text-validation fadeIn">* Debe escoger una opción</span>
+      </div>
+      <div class="row" *ngIf="'formProfesional'">
+        <div class="col">
+          <div class="col">
+            <label for="formSpeciality" class="form-label" class="custom-label"
+              >Seleccione especialidad</label
+            >
+          </div>
+          <select
+            type="text"
+            formControlName="formSpeciality"
+            class="custom-input"
+            id="formSpeciality"
+            placeholder="Seleccione sucursal"
+          >
+            <option selected value=""></option>
+            <option
+              *ngFor="let specialty of specialtyOfDentist"
+              [ngValue]="specialty.id"
+            >
+              {{ specialty.especialtyToShow }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          userForm.get('formSpeciality').hasError('required') &&
+          userForm.get('formSpeciality').touched
+        "
+        class="col text"
+      >
+        <span class="text-validation fadeIn">* Debe escoger una opción</span>
+      </div>
+      <!-- Selección por prestación -->
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="formAttention" class="form-label" class="custom-label"
+              >Seleccione tratamiento</label
+            >
+          </div>
+          <select
+            type="text"
+            class="custom-input"
+            formControlName="formAttention"
+            id="formAttention"
+            (change)="actionSelectDoct()"
+            placeholder="Seleccione sucursal"
+          >
+            <option selected value=""></option>
+            <option
+              *ngFor="let subSpecialty of subSpecialtyOfDentist"
+              [ngValue]="subSpecialty"
+            >
+              {{ subSpecialty["nombre"] }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          userForm.get('formAttention').hasError('required') &&
+          userForm.get('formAttention').touched
+        "
+        class="col text"
+      >
+        <span class="text-validation fadeIn">* Debe escoger una opción</span>
+      </div>
+
+      <!-- Selección sucursal -->
+      <div class="row">
+        <div class="col">
+          <div>
+            <label for="formSede" class="form-label" class="custom-label"
+              >Seleccione sucursal</label
+            >
+          </div>
+          <ng-select
+            formControlName="formSede"
+            class="custom-input"
+            id="formSede"
+            [(ngModel)]="nrSelect"
+          >
+            <ng-option
+              *ngFor="let office of sucursalOfDentist"
+              [value]="office"
+              placeholder="Seleccione sucursal"
+            >
+              <option selected value=""></option>
+              {{ office["clinica"] }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          userForm.get('formSede').hasError('required') &&
+          userForm.get('formSede').touched
+        "
+        class="col text"
+      >
+        <span class="text-validation fadeIn">* Debe escoger una opción</span>
+      </div>
+      <div
+        *ngIf="
+          userForm.get('formAttention').value !== '' &&
+          userForm.get('formAttention').touched &&
+          sucursalOfDentist.length === 0
+        "
+        class="col text"
+      >
+        <span class="text-validation fadeIn"
+          >* El profesional no cuenta con horas disponibles para esa
+          especialidad.</span
+        >
+      </div>
+    </div>
+
+    <div
+      *ngIf="this.selection === 'profesional' || this.selection === 'specialty'"
+    >
+      <!-- Botones de agendamiento -->
+
+      <!-- Capcha -->
+      <div class="row pt-4">
+        <div class="col">
+          <div class="d-flex justify-content-center">
+            <ngx-recaptcha2
+              #captchaElem
+              [siteKey]="siteKey"
+              [useGlobalDomain]="false"
+              formControlName="recaptcha"
+            >
+            </ngx-recaptcha2>
+          </div>
+        </div>
+      </div>
+      <!-- Boton buscar -->
+      <div class="row">
+        <div class="col m-4">
+          <button
+            type="button"
+            class="btn-custom-secondary2"
+            [disabled]="userForm.invalid"
+            (click)="onSubmit()"
+          >
+            Buscar horas
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Escoja fecha propuesta</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body m-auto">
+    <ngb-datepicker
+      #dp
+      [(ngModel)]="model"
+      (navigate)="date = $event.next"
+    ></ngb-datepicker>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Cerrar
+    </button>
+  </div>
+</ng-template>

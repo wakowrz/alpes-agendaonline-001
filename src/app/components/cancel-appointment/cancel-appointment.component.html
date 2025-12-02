@@ -1,0 +1,225 @@
+<div class="text-light fadeIn d-none d-sm-block">
+  <div class="banner-reschedule-appointment">
+    <div class="container d-flex align-items-center align-self-center pt-5">
+      <img class="img-fluid" src="/assets/icons/time-clock-white.png" alt="" />
+      <h1 class="banner-text font-size-60 font-family-SemiBold color-whit">
+        Modificar mis citas
+      </h1>
+    </div>
+  </div>
+</div>
+<div class="container align-items-center fadeIn misCitasContainer">
+  <div class="text-center">
+    <!-- Title Schedule Date -->
+    <span
+      class="title-info-new font-size-36 font-family-Light color-gris title-line"
+      >Revisa tus citas agendadas</span
+    >
+    <!-- Subtitle -->
+
+    <form
+      class="form-group justify-content-center"
+      [formGroup]="cancelAppointmentForm"
+    >
+      <div class="row">
+        <div class="col">
+          <div class="col">
+            <label for="form-rut" class="form-label" class="custom-label"
+              >Rut del Paciente</label
+            >
+          </div>
+          <input
+            type="text"
+            class="custom-input text-center"
+            id="form-rut"
+            name="rutPaciente"
+            formControlName="rutPaciente"
+            placeholder="123465678-9"
+          />
+          <div
+            class="col text"
+            *ngIf="
+              cancelAppointmentForm.get('rutPaciente').hasError('invalid') &&
+              cancelAppointmentForm.get('rutPaciente').touched
+            "
+          >
+            <span class="text-validation fadeIn">* El rut no es válido</span>
+          </div>
+        </div>
+      </div>
+      <!-- captcha -->
+      <div class="row pt-4">
+        <div class="col">
+          <div class="d-flex justify-content-center">
+            <ngx-recaptcha2
+              #captchaElem
+              [siteKey]="siteKey"
+              [useGlobalDomain]="false"
+              formControlName="recaptcha"
+            >
+            </ngx-recaptcha2>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col m-3 m-lg-3 justify-content-center bd-highlight">
+      <button
+        type="button"
+        class="btn-custom-secondary2 d-block m-auto"
+        [disabled]="cancelAppointmentForm.invalid"
+        (click)="this.cancel()"
+      >
+        Buscar citas
+      </button>
+    </div>
+  </div>
+
+  <!-- Card-date -->
+  <div *ngIf="this.users.length > 0">
+    <!-- Doc information card -->
+    <div *ngFor="let user of this.users">
+      <div class="container mt-1 mt-lg-2 mb-2">
+        <div class="d-flex justify-content-center bd-highlight mb-2">
+          <span
+            class="subtitle m-2 text-center"
+            *ngIf="this.user.historial == true"
+            >Historial de citas</span
+          >
+        </div>
+        <div class="card custom-card2 fadeIn">
+          <div class="custom-card-header"></div>
+          <div class="card-body">
+            <div class="row d-md-flex align-items-center">
+              <!-- Doc info -->
+              <div class="col-md col-sm text-sm-center">
+                <div class="row text-sm-center text-md-left">
+                  <div class="col-md-2 col-sm text-md-end text-sm-center">
+                    <img
+                      class=""
+                      src="/assets/icons/dentist-in-blue.png"
+                      alt="icono Profesional"
+                    />
+                  </div>
+                  <div class="col-md-10 text-md-start text-sm-center mb-1">
+                    <span
+                      class="p2 title-info-new font-size-20 font-family-Semibold color-blue"
+                      >{{ this.user.nombre }}</span
+                    >
+                    <br /><span
+                      class="p title-info-new font-size-18 font-family-Regular color-gris"
+                      >{{ this.user.especialidad }}</span
+                    >
+                    <br /><b
+                      class="title-info-new font-size-18 font-family-Regular color-gris"
+                      >{{ this.user.nombre_sucursal }}</b
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Patient Info -->
+              <div class="col col-sm">
+                <div class="row py-2">
+                  <div class="col-4 col-md-3 col-lg-2">
+                    <img
+                      class="d-block m-auto w-100 p-1 iconCard"
+                      src="/assets/icons/tooth-pain-blue.png"
+                      alt="icono Paciente"
+                    />
+                  </div>
+                  <div class="col-8 col-md-9 col-lg-10 text-md-start">
+                    <p>
+                      <span
+                        class="p2 title-info-new font-size-20 font-family-Semibold color-blue"
+                        >{{ this.user.nombre_paciente }}</span
+                      >
+                      <br /><span
+                        class="p title-info-new font-size-18 font-family-Regular color-gris"
+                        >{{ this.user.rut }}</span
+                      >
+                      <br /><span
+                        class="p title-info-new font-size-18 font-family-Regular color-gris"
+                        >{{ this.emailToShow }}</span
+                      >
+                      <br /><span
+                        class="p title-info-new font-size-18 font-family-Regular color-gris"
+                        >{{ this.cellphoneToShow }}</span
+                      >
+                    </p>
+                  </div>
+                </div>
+                <!-- Appointment Info -->
+                <div class="row">
+                  <div class="col col-sm">
+                    <div class="row">
+                      <div class="col-lg-2 col-md-3 col-4">
+                        <img
+                          class="d-block m-auto w-100 p-1 iconCard"
+                          src="/assets/icons/calendar-with-tooth-blue.png"
+                          alt="icono calendario"
+                        />
+                      </div>
+                      <div class="col-8 col-md-9 col-lg-10 text-md-start">
+                        <p>
+                          <span
+                            class="p2 title-info-new font-size-20 font-family-Semibold color-blue"
+                            >{{ this.user.fecha | date: "fullDate" }}</span
+                          >
+                          <br /><span
+                            class="p title-info-new font-size-18 font-family-Regular color-gris"
+                            >{{ this.user.hora_inicio }}</span
+                          >
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div
+                class="col my-2 my-md-4 d-grid gap-2 justify-content-center justify-content-md-end bd-highlight"
+                *ngIf="this.user.btnCancel == true"
+              >
+                <button
+                  type="button"
+                  class="btn-custom-secondary2"
+                  (click)="this.reprogramarHora(this.user)"
+                >
+                  Reprogramar cita
+                </button>
+              </div>
+              <div
+                class="col my-2 my-md-4 d-grid gap-2 justify-content-center justify-content-md-start bd-highlight"
+                *ngIf="this.user.btnCancel == true"
+              >
+                <button
+                  type="button"
+                  class="btn-custom-secondary2"
+                  (click)="this.cancelarHora(this.user)"
+                >
+                  Anular cita
+                </button>
+              </div>
+              <div
+                class="col my-2 d-flex justify-content-center bd-highlight mb-2"
+                *ngIf="this.user.btnCancel == false"
+              >
+                <button
+                  type="button"
+                  class="btn-custom-secondary2"
+                  (click)="this.programarHora(this.user)"
+                >
+                  Agendar una nueva cita
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
