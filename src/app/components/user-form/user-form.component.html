@@ -64,12 +64,9 @@
       <!-- Rut Paciente -->
       <div class="row">
         <div class="col">
-          <div class="col">
-            <label for="formRut" class="form-label custom-label"
-              >Rut del Paciente</label
-            >
+          <div class="col ">
+         <label for="formRut" class="mb-0 pb-0 form-label custom-label">Rut del Paciente</label>
           </div>
-
           <input
             type="text"
             name="formRut"
@@ -94,18 +91,17 @@
       <div class="row">
         <div class="col">
           <div class="col">
-            <label for="formSpeciality" class="form-label" class="custom-label"
-              >Seleccione especialidad</label
-            >
+            <label for="formSpeciality" class="mb-0 pb-0 form-label custom-label"
+              >Especialidad</label>
           </div>
           <select
             type="text"
             formControlName="formSpeciality"
             class="custom-input color-background-whit"
             id="formSpeciality"
-            placeholder="Seleccione sucursal"
+            placeholder="Seleccione especialidad"
           >
-            <option selected value=""></option>
+            <option selected value="">Seleccione especialidad</option>
             <option
               *ngFor="let specialty of specialties"
               [ngValue]="specialty.id"
@@ -128,8 +124,8 @@
       <div class="row">
         <div class="col">
           <div class="col">
-            <label for="formAttention" class="form-label" class="custom-label"
-              >Seleccione tratamiento</label
+            <label for="formAttention" class="form-label mb-0 pb-0 custom-label"
+              >Tratamiento</label
             >
           </div>
 
@@ -139,9 +135,9 @@
             formControlName="formAttention"
             id="formAttention"
             (change)="actionSelect()"
-            placeholder="Seleccione sucursal"
+            placeholder="Seleccione tratamiento"
           >
-            <option selected value=""></option>
+            <option selected value="">Seleccione tratamiento</option>
             <option
               *ngFor="let subSpecialty of subSpecialties"
               [ngValue]="subSpecialty"
@@ -165,8 +161,8 @@
       <div class="row">
         <div class="col">
           <div>
-            <label for="formSede" class="form-label" class="custom-label"
-              >Seleccione sucursal</label
+            <label for="formSede" class="form-label" class="mb-0 pb-0 form-label custom-label"
+              >Sucursal</label
             >
           </div>
           <select
@@ -176,7 +172,7 @@
             id="formSede"
             placeholder="Seleccione sucursal"
           >
-            <option selected value=""></option>
+            <option selected value="">Seleccione sucursal</option>
             <option
               *ngFor="let office of offices"
               [ngValue]="office.id_sucursal"
@@ -201,7 +197,7 @@
       <div class="row">
         <div class="col">
           <div class="col">
-            <label for="formRut" class="form-label custom-label"
+            <label for="formRut" class="form-label custom-label mb-0 pb-0 "
               >Rut del Paciente</label
             >
           </div>
@@ -230,7 +226,7 @@
       <div class="row">
         <div class="col">
           <div class="col">
-            <label for="formProfesional" class="form-label" class="custom-label"
+            <label for="formProfesional" class="form-label mb-0 pb-0 custom-label"
               >Buscar profesional</label
             >
           </div>
@@ -259,7 +255,7 @@
       <div class="row" *ngIf="'formProfesional'">
         <div class="col">
           <div class="col">
-            <label for="formSpeciality" class="form-label" class="custom-label"
+            <label for="formSpeciality"  class="custom-label mb-0 pb-0 form-label"
               >Seleccione especialidad</label
             >
           </div>
@@ -293,8 +289,8 @@
       <div class="row">
         <div class="col">
           <div class="col">
-            <label for="formAttention" class="form-label" class="custom-label"
-              >Seleccione tratamiento</label
+            <label for="formAttention" class="form-label mb-0 pb-0 custom-label"
+              >Tratamiento</label
             >
           </div>
           <select
@@ -305,7 +301,7 @@
             (change)="actionSelectDoct()"
             placeholder="Seleccione sucursal"
           >
-            <option selected value=""></option>
+            <option selected value="">seleccione tratamiento</option>
             <option
               *ngFor="let subSpecialty of subSpecialtyOfDentist"
               [ngValue]="subSpecialty"
@@ -329,8 +325,8 @@
       <div class="row">
         <div class="col">
           <div>
-            <label for="formSede" class="form-label" class="custom-label"
-              >Seleccione sucursal</label
+            <label for="formSede" class="form-label mb-0 pb-0 custom-label"
+              >Sucursal(es)</label
             >
           </div>
           <ng-select
@@ -342,9 +338,9 @@
             <ng-option
               *ngFor="let office of sucursalOfDentist"
               [value]="office"
-              placeholder="Seleccione sucursal"
+              placeholder="Sucursal"
             >
-              <option selected value=""></option>
+              <option selected value="">selecciona sucursal</option>
               {{ office["clinica"] }}
             </ng-option>
           </ng-select>

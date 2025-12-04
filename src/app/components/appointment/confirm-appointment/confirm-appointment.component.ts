@@ -33,7 +33,7 @@ export class ConfirmAppointmentComponent
 
   //Variables de captcha
   public captchaSuccess = false;
-  siteKey: string = '6LdwojMfAAAAADEZDH1igVhs3I0ZJGlhC3lyrdU5';
+  siteKey: string = '6LfQa4AhAAAAAFZxRbG7mDlb_z3a_2isYJ9uMbAT';
   public theme: 'light' | 'dark' = 'light';
   public size: 'compact' | 'normal' = 'normal';
   public lang = 'es';

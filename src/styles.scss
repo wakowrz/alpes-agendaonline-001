@@ -34,7 +34,7 @@ select {
   box-shadow: none !important;
 }
 .color-blue {
-  color: #072d69 !important;
+  color: #FCBC04 !important;
 }
 
 .container__agenda {
@@ -249,11 +249,11 @@ p {
 // ------------------------------------------------------------------------------------------
 // HEADER ----------------------------------------------------------------------------------
 .banner-principal {
-  background-image: url(./assets/img/Banner.png);
+  background-image: url(./assets/img/banner_alpes_kid_002.webp);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 240px;
+  height: 300px;
   width: 100%;
   top: 32px;
   z-index: 9999;
@@ -282,7 +282,7 @@ p {
 .banner-text,
 .header-icon {
   font-size: 60px;
-  color: #fff;
+  color: #6b8093;
   padding-left: 50px;
 }
 // ------------------------------------------------------------------------------------------
@@ -290,7 +290,7 @@ p {
 .custom-footer {
   height: 70px;
   width: auto;
-  background-color: #263168;
+  background-color: #6b8093;
   color: #fff;
   padding-top: 5px;
   text-align: left;
@@ -334,7 +334,7 @@ fa-icon {
 .btn-custom-secondary2 {
   height: 55px;
   border-radius: 6px;
-  background-color: #072d69 !important;
+  background-color: #faba00 !important;
   font-size: 18px !important;
   font-weight: 600;
   font-stretch: normal;
@@ -350,7 +350,7 @@ fa-icon {
 .btn-custom-secondary2:hover {
   height: 55px;
   border-radius: 6px;
-  background-color: #005091 !important;
+  background-color: #f99300 !important;
   font-size: 18px !important;
   font-weight: 600;
   font-stretch: normal;
@@ -366,7 +366,7 @@ fa-icon {
 .btn-custom-secondary2:disabled,
 .btn-custom-secondary2[disabled="disabled"] {
   border: 1px solid #999999;
-  background-color: #5d819e !important;
+  background-color: #6b8093 !important;
   color: #666666;
 }
 .btn-custom-outline {
