@@ -65,7 +65,8 @@ export class UserFormComponent
   submitted = false;
 
   //Variables de Captha
-  siteKey: string = '6LdwojMfAAAAADEZDH1igVhs3I0ZJGlhC3lyrdU5';
+  //siteKey: string = '6LdwojMfAAAAADEZDH1igVhs3I0ZJGlhC3lyrdU5';
+siteKey: string = '6LfQa4AhAAAAAFZxRbG7mDlb_z3a_2isYJ9uMbAT';
   public theme: 'light' | 'dark' = 'light';
   public size: 'compact' | 'normal' = 'normal';
   public lang = 'es';
@@ -172,15 +173,22 @@ export class UserFormComponent
       .get('formProfesional')
       .valueChanges.pipe(takeUntil(this.finalizar$))
       .subscribe((dentist) => {
+        // Solo proceder si tenemos un objeto válido y estamos en el modo 'profesional'
         if (
-          dentist !== null ||
-          (dentist !== undefined && this.selection === 'profesional')
+          dentist !== null &&
+          dentist !== undefined &&
+          this.selection === 'profesional'
         ) {
           this.userForm.get('formSpeciality').setValue('');
           this.userForm.get('formAttention').setValue('');
           this.userForm.get('formSede').setValue('');
           this.specialtyOfDentistID = '';
           this.getSpecialityByDentists(dentist);
+        } else {
+          // Si el valor es vacío (por ejemplo al resetear el formulario), limpiar estados relacionados
+          this.specialtyOfDentist = [];
+          this.subSpecialtyOfDentist = [];
+          this.sucursalOfDentist = [];
         }
       });
   }
@@ -240,14 +248,6 @@ export class UserFormComponent
     }
   }
   public selectFor(option) {
-    if (option === 'smile') {
-      window.location.href = 'https://44ba007a1719e4154fb02924d6e56cdba6f8533f.agenda.softwaredentalink.com/agenda/especialidad?modalidad=1&id_especialidad=18869134';
-      return;
-    }
-    if (option === 'profesional') {
-      window.location.href = 'https://44ba007a1719e4154fb02924d6e56cdba6f8533f.agenda.softwaredentalink.com/agenda/profesional?modalidad=1';
-      return;
-    }
     if (option !== this.selection) {
       this.selection = option;
       this.userForm.reset({
@@ -400,7 +400,13 @@ export class UserFormComponent
         });
   }
   public getSpecialityByDentists(dentist) {
-    this.specialtyOfDentist = dentist.especialidades;
+    // Validación: evitar acceder a propiedades cuando dentist es nulo o un string vacío
+    if (!dentist || dentist === '') {
+      this.specialtyOfDentist = [];
+      return;
+    }
+
+    this.specialtyOfDentist = dentist.especialidades || [];
     if (this.specialtyOfDentist !== undefined) {
       if (this.specialtyOfDentist.length === 1) {
         this.userForm
