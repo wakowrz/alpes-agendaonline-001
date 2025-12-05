@@ -5,13 +5,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CapitalizadePipe implements PipeTransform {
   transform(value: string, active: boolean = true): string {
+    if (!value || typeof value !== 'string') return '';
+
     value = value.toLocaleLowerCase();
-    let names = value.split(' ');
+    const names = value.split(' ').map((n) => (n ? n : ''));
+
     if (active) {
-      names = names.map((name) => name[0].toUpperCase() + name.substr(1));
+      return names
+        .map((name) => (name ? name[0].toUpperCase() + name.slice(1) : ''))
+        .join(' ');
     } else {
-      names[0] = names[0][0].toUpperCase() + names[0].substr(1);
+      // Capitalize only the first word
+      if (!names[0]) return '';
+      names[0] = names[0][0].toUpperCase() + names[0].slice(1);
+      return names.join(' ');
     }
-    return names.join(' ');
   }
 }
