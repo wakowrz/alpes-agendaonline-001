@@ -333,12 +333,11 @@
             id="formSede"
             [(ngModel)]="nrSelect"
           >
+            <ng-option [value]="null">selecciona sucursal</ng-option>
             <ng-option
               *ngFor="let office of sucursalOfDentist"
               [value]="office"
-              placeholder="Sucursal"
             >
-              <option selected value="">selecciona sucursal</option>
               {{ office["clinica"] }}
             </ng-option>
           </ng-select>
